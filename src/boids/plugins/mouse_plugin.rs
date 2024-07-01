@@ -1,8 +1,17 @@
 use bevy::{
-    input::{mouse::MouseButtonInput, ButtonState}, math::vec2, prelude::*, sprite::{MaterialMesh2dBundle, Mesh2dHandle}, window::PrimaryWindow
+    input::{mouse::MouseButtonInput, ButtonState},
+    math::vec2,
+    prelude::*,
+    sprite::{MaterialMesh2dBundle, Mesh2dHandle},
+    window::PrimaryWindow,
 };
+use rand::Rng;
 
-use crate::boids::data::{blob::{Blob, BlobType}, camera::MainCamera, mouse::Mouse};
+use crate::boids::data::{
+    blob::{Blob, BlobType},
+    camera::MainCamera,
+    mouse::Mouse,
+};
 
 pub struct MousePlugin;
 
@@ -60,11 +69,19 @@ fn spawn_blob(
     materials: &mut ResMut<Assets<ColorMaterial>>,
     meshes: &mut ResMut<Assets<Mesh>>,
 ) -> (Blob, MaterialMesh2dBundle<ColorMaterial>) {
+
+    let radius = rand::thread_rng().gen_range(25.0..50.0);
+    let color = Color::rgb(
+        rand::thread_rng().gen_range(0.0..1.0),
+        rand::thread_rng().gen_range(0.0..1.0),
+        rand::thread_rng().gen_range(0.0..1.0),
+    );
+
     return (
-        Blob::default(),
+        Blob::default_with_radius(radius),
         MaterialMesh2dBundle {
-            mesh: Mesh2dHandle(meshes.add(Circle { radius: 50.0 })),
-            material: materials.add(Color::RED),
+            mesh: Mesh2dHandle(meshes.add(Circle { radius })),
+            material: materials.add(color),
             transform: Transform::from_xyz(mouse.pos.x, mouse.pos.y, 0.0),
             ..default()
         },
@@ -82,6 +99,7 @@ fn spawn_block(
             vy: 0.0,
             vector: vec2(0.0, 0.0),
             blob_type: BlobType::WHITE,
+            radius: 50.0,
         },
         MaterialMesh2dBundle {
             mesh: Mesh2dHandle(meshes.add(Circle { radius: 50.0 })),

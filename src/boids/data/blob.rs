@@ -7,6 +7,7 @@ pub struct Blob {
     pub vy: f32,
     pub vector: Vec2,
     pub blob_type: BlobType,
+    pub radius: f32,
 }
 
 #[derive(Component, PartialEq)]
@@ -16,12 +17,22 @@ pub enum BlobType {
 }
 
 impl Blob {
-    pub fn default() -> Self {
+    pub fn default_with_radius(radius: f32) -> Self {
         let vx = rand::thread_rng().gen_range(-200.0..200.0);
         let vy = rand::thread_rng().gen_range(-200.0..200.0);
         let vector = vec2(rand::thread_rng().gen_range(-200.0..200.0), rand::thread_rng().gen_range(-200.0..200.0));
         let blob_type = BlobType::RED;
 
-        Self {vx,vy,vector, blob_type}
+        Self {vx,vy,vector, blob_type, radius}
+    }
+
+    pub fn default() -> Self {
+        let vx = rand::thread_rng().gen_range(-200.0..200.0);
+        let vy = rand::thread_rng().gen_range(-200.0..200.0);
+        let vector = vec2(rand::thread_rng().gen_range(-200.0..200.0), rand::thread_rng().gen_range(-200.0..200.0));
+        let blob_type = BlobType::RED;
+        let radius = 50.0;
+
+        Self {vx,vy,vector, blob_type, radius}
     }
 }
