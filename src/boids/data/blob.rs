@@ -1,4 +1,7 @@
-use bevy::{math::{vec2, Vec2}, prelude::Component};
+use bevy::{
+    math::{vec2, Vec2},
+    prelude::Component,
+};
 use rand::Rng;
 
 #[derive(Component, PartialEq)]
@@ -13,26 +16,25 @@ pub struct Blob {
 #[derive(Component, PartialEq)]
 pub enum BlobType {
     WHITE,
-    RED
+    RED,
 }
 
 impl Blob {
     pub fn default_with_radius(radius: f32) -> Self {
         let vx = rand::thread_rng().gen_range(-200.0..200.0);
         let vy = rand::thread_rng().gen_range(-200.0..200.0);
-        let vector = vec2(rand::thread_rng().gen_range(-200.0..200.0), rand::thread_rng().gen_range(-200.0..200.0));
+        let vector = vec2(
+            rand::thread_rng().gen_range(-200.0..200.0),
+            rand::thread_rng().gen_range(-200.0..200.0),
+        );
         let blob_type = BlobType::RED;
 
-        Self {vx,vy,vector, blob_type, radius}
-    }
-
-    pub fn default() -> Self {
-        let vx = rand::thread_rng().gen_range(-200.0..200.0);
-        let vy = rand::thread_rng().gen_range(-200.0..200.0);
-        let vector = vec2(rand::thread_rng().gen_range(-200.0..200.0), rand::thread_rng().gen_range(-200.0..200.0));
-        let blob_type = BlobType::RED;
-        let radius = 50.0;
-
-        Self {vx,vy,vector, blob_type, radius}
+        Self {
+            vx,
+            vy,
+            vector,
+            blob_type,
+            radius,
+        }
     }
 }

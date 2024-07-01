@@ -38,12 +38,6 @@ fn move_blobs(mut q: Query<(&mut Blob, &mut Transform)>, time: Res<Time>) {
 
 fn bounds_blobs(mut q: Query<(&mut Blob, &Transform)>) {
     for (mut blob, transform) in q.iter_mut() {
-        let b_circle = BoundingCircle::new(transform.translation.truncate(), blob.radius);
-
-        let center = b_circle.center - BOUNDS;
-        let speed_vx = blob.vx - BOUNDS.x;
-        let speed_vy = blob.vy - BOUNDS.y;
-
         if transform.translation.x < -BOUNDS.x && blob.vx < 0.0 {
             blob.vx = -blob.vx * 1.2;
         }
