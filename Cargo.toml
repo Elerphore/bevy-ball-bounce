@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 bevy = "0.13.2"
-rand = "0.8.3"
+rand = "0.9.3"
 
 # Enable max optimizations for dependencies, but not for our code:
 [profile.dev.package."*"]
